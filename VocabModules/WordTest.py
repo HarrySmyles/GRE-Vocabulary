@@ -1,8 +1,14 @@
-# Harrison Kim
+#Harrison Kim
+#This program will scramble the GRE words in a list with definitions (tab delimited)
+# and provide multiple choice questions for each word.
+
+__all__ = ['wordTest']
+
 import csv
 import random
 
-if __name__ == "__main__":
+
+def wordTest():
     with open('GMAT Vocabulary Words.txt') as in_f:
         contents = csv.reader(in_f, delimiter="\t")
         list_contents = list(contents)
@@ -13,6 +19,7 @@ if __name__ == "__main__":
         for index in range(0, len(list_contents)):
             words.append(list_contents[index][0])
             definitions.append(list_contents[index][1])
+
         for x in rand_index:
             definition = [0, 0, 0, 0]
             check_diff = 5
@@ -38,9 +45,20 @@ if __name__ == "__main__":
                         check_diff += 1
                 shuffle_index = [0, 1, 2, 3]
                 random.shuffle(shuffle_index)
-            answer = input("{}:\n1. {}\n2. {}\n3. {}\n4. {}\n".format(words[x],definition[shuffle_index[0]],definition[shuffle_index[1]],definition[shuffle_index[2]],definition[shuffle_index[3]]))
+            answer = input("{}:\n1. {}\n2. {}\n3. {}\n4. {}\n".format(words[x],
+                                                                      definition[
+                                                                          shuffle_index[
+                                                                              0]],
+                                                                      definition[
+                                                                          shuffle_index[
+                                                                              1]],
+                                                                      definition[
+                                                                          shuffle_index[
+                                                                              2]],
+                                                                      definition[
+                                                                          shuffle_index[
+                                                                              3]]))
             if shuffle_index[int(answer) - 1] == 0:
                 print("\nCorrect!\n")
             else:
                 print("\nIncorrect! The Correct Answer is: ", definition[0], "\n")
-
