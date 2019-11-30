@@ -44,14 +44,20 @@ def findDefinitions(app_id, app_key, file):
             else:
                 definitions.append('No Definition Found')
 
+        with open('Words with Definitions.txt', mode='wb') as out_f:
+            defined_list = csv.writer(out_f, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            for i in range(0, len(list(contents))):
+                defined_list.writerow(words[i], definitions[i])
         #for i in range(0, len(list_contents)):
         #    print(words[i], ":  ", definitions[i])
         #f = open('Words With Definitions.txt', 'w')
         #for i in range(0, len(list(contents))):
         #    f.write(words[i], ':  ', definitions[i])
         #f.close()
+        """
         with open('Words with Definitions.txt', mode='wb') as out_f:
             defined_list = csv.writer(out_f, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             for i in range(0, len(list(contents))):
                 defined_list.writerow(words[i], definitions[i])
+                """
 
