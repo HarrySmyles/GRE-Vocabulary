@@ -8,6 +8,9 @@ import csv
 import urllib3
 import requests
 import json
+import multiprocessing
+from time import sleep
+import queue as q
 
 app_id = '' #Enter API ID
 app_key = '' #Enter API Key
@@ -29,7 +32,7 @@ def findDefinitions(app_id, app_key, file):
             r = requests.get(url, headers={'Accept': 'application/json',
                                            'app_id': app_id,
                                            'app_key': app_key})
-            print(r)
+            print("Retrieving Definition: ", words[index])
             if str(r) == '<Response [200]>':
                 r = requests.get(url, headers={'Accept': 'application/json',
                                                'app_id': app_id,
@@ -37,27 +40,19 @@ def findDefinitions(app_id, app_key, file):
                 try:
                     data = r.json()
                     definitions.append(data['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['definitions'][0])
+                    print("Retrieved Definition: ", words[index])
                 except:
                     definitions.append('No Definition Found')
-            if str(r) == '<Response [403]>':
+            elif str(r) == '<Response [403]>':
                 print("Failure to Retrieve Definition from Oxford Dictionaries")
             else:
                 definitions.append('No Definition Found')
 
-        with open('Words with Definitions.txt', mode='wb') as out_f:
-            defined_list = csv.writer(out_f, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            for i in range(0, len(list(contents))):
-                defined_list.writerow(words[i], definitions[i])
-        #for i in range(0, len(list_contents)):
-        #    print(words[i], ":  ", definitions[i])
-        #f = open('Words With Definitions.txt', 'w')
-        #for i in range(0, len(list(contents))):
-        #    f.write(words[i], ':  ', definitions[i])
-        #f.close()
-        """
-        with open('Words with Definitions.txt', mode='wb') as out_f:
-            defined_list = csv.writer(out_f, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            for i in range(0, len(list(contents))):
-                defined_list.writerow(words[i], definitions[i])
-                """
+    writeDefinitions(words, definitions)
+
+def writeDefinitions(words, definitions):
+    with open('Words with Definitions.txt', mode='w', newline='') as out_f:
+        defined_list = csv.writer(out_f, delimiter='\t', quotechar='|')
+        for i in range(0, len(words)):
+            defined_list.writerow([words[i], definitions[i]])
 

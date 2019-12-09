@@ -9,7 +9,10 @@ choice = input("Please provide an option.\n1. Find definitions of words in a lis
 if choice == '1':
     app_id = input('Please provide an API ID for Oxford Dictionaries')
     app_key = input('Please provide the API key')
-    file = input('Please provide the txt/csv file with the list of words')
+
+
+    #file = input('Please provide the txt/csv file with the list of words')
+    file = 'Words.txt'
     FindDefinitions.findDefinitions(app_id, app_key, file)
 
 elif choice == '2':

@@ -9,7 +9,7 @@ import random
 
 
 def wordTest():
-    with open('GMAT Vocabulary Words.txt') as in_f:
+    with open('Words with Definitions.txt') as in_f:
         contents = csv.reader(in_f, delimiter="\t")
         list_contents = list(contents)
         rand_index = [i for i in range(len(list_contents))]
