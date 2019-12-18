@@ -7,9 +7,10 @@ from VocabModules import *
 choice = input("Please provide an option.\n1. Find definitions of words in a list.\n2. Scramble words and take a multiple choice vocab quiz\nInput: ")
 
 if choice == '1':
-    app_id = input('Please provide an API ID for Oxford Dictionaries')
-    app_key = input('Please provide the API key')
-
+    #app_id = input('Please provide an API ID for Oxford Dictionaries')
+    #app_key = input('Please provide the API key')
+    app_id = '6ea9aec1'
+    app_key = '64b0c255457b3aa21f9075231dd70483'
 
     #file = input('Please provide the txt/csv file with the list of words')
     file = 'Words.txt'
